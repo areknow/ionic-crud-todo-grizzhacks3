@@ -5,6 +5,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AddPage } from '../pages/add/add';
 import { ListPage } from '../pages/list/list';
+import { ModalPage } from '../pages/modal/modal';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,6 +21,7 @@ import { DateSortPipe } from '../pipes/date-sort';
     MyApp,
     AddPage,
     ListPage,
+    ModalPage,
     DateSortPipe
   ],
   imports: [
@@ -32,7 +34,8 @@ import { DateSortPipe } from '../pipes/date-sort';
   entryComponents: [
     MyApp,
     AddPage,
-    ListPage
+    ListPage,
+    ModalPage
   ],
   providers: [
     StatusBar,
