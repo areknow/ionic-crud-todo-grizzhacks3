@@ -35,6 +35,7 @@ Grizzhacks 3 live coding demo documentation
 - create a env.ts file, add:
 
 ```javascript
+// note: these credentials are not valid. use your own
 export const env = {
   production: false,
   firebase: {
