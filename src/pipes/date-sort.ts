@@ -1,0 +1,25 @@
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'dateSort'
+})
+
+export class DateSortPipe implements PipeTransform {
+  transform(value) {
+
+    if (!value) return;
+
+    let val = value.sort((a: any, b: any) => {
+
+      if (a.time < b.time) {
+        return 1;
+      } else if (a.time > b.time) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+
+    return val;
+  }
+}
