@@ -13,11 +13,14 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
 import { env } from '../environments/env';
 
+import { DateSortPipe } from '../pipes/date-sort';
+
 @NgModule({
   declarations: [
     MyApp,
     AddPage,
-    ListPage
+    ListPage,
+    DateSortPipe
   ],
   imports: [
     BrowserModule,
