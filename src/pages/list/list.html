@@ -8,5 +8,10 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-item class="list-item" *ngFor="let item of items$ | async">
+    <div>{{ item.name }}</div>
+    <div class="desc">{{ item.description }}</div>
+  </ion-item>
   
 </ion-content>
