@@ -12,6 +12,7 @@
   <ion-item class="list-item" *ngFor="let item of items$ | async">
     <div>{{ item.name }}</div>
     <div class="desc">{{ item.description }}</div>
+    <ion-icon name="close" item-right (click)="removeItem(item.id)"></ion-icon>
   </ion-item>
-  
+
 </ion-content>

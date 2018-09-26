@@ -32,4 +32,8 @@ export class ListPage {
     });
   }
 
+  removeItem(id) {
+    this.collection.doc(id).delete();
+  }
+
 }
