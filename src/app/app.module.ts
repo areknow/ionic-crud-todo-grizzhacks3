@@ -9,6 +9,10 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireModule } from 'angularfire2';
+import { env } from '../environments/env';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -18,6 +22,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(env.firebase),
+    AngularFirestoreModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
