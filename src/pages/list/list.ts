@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 
 import { Item } from '../../models/types';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
@@ -19,8 +19,9 @@ export class ListPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    private afs: AngularFirestore
-  ) {
+    private afs: AngularFirestore,
+    public toastCtrl: ToastController
+    ) {
     this.collection = this.afs.collection<Item>('items');
 
     this.items$ = this.collection.snapshotChanges().map(actions => {
@@ -34,6 +35,15 @@ export class ListPage {
 
   removeItem(id) {
     this.collection.doc(id).delete();
+    this.presentToast('Item removed');
+  }
+
+  presentToast(message) {
+    const toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000
+    });
+    toast.present();
   }
 
 }
