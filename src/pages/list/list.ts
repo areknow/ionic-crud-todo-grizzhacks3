@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 
 import { Item } from '../../models/types';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
@@ -20,7 +20,8 @@ export class ListPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     private afs: AngularFirestore,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public alertCtrl: AlertController
     ) {
     this.collection = this.afs.collection<Item>('items');
 
@@ -34,8 +35,24 @@ export class ListPage {
   }
 
   removeItem(id) {
-    this.collection.doc(id).delete();
-    this.presentToast('Item removed');
+    const confirm = this.alertCtrl.create({
+      title: 'Remove item?',
+      message: 'Do you want to delete this item?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.collection.doc(id).delete();
+            this.presentToast('Item removed');
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
   presentToast(message) {
