@@ -18,6 +18,8 @@ export class ListPage {
   collection: AngularFirestoreCollection<Item>;
   items$: Observable<Item[]>;
 
+  itemCount: number;
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -35,6 +37,10 @@ export class ListPage {
         return { id, ...data };
       });
     });
+
+    this.items$.subscribe((data: any) => {
+      this.itemCount = data.length;
+    }, (error: any) => console.log(error));
   }
 
   removeItem(id) {
