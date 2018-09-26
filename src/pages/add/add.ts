@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 
 import { Item } from '../../models/types';
@@ -18,7 +18,8 @@ export class AddPage {
 
   constructor(
     public navCtrl: NavController,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    public toastCtrl: ToastController
   ) {
     this.collection = this.afs.collection<Item>('items');
   }
@@ -28,10 +29,27 @@ export class AddPage {
       this.collection.add({
         name: f.value.name,
         description: f.value.description
+      })
+      .then(()=> {
+        this.itemName = '';  
+        this.itemDesc = '';
+        this.presentToast('Item saved!');
+      })
+      .catch((error)=> {
+        console.log(error);
+        this.presentToast('Error saving item');
       });
     } else {
-      console.log('empty field')
+      this.presentToast('Please enter item name');
     }
+  }
+
+  presentToast(message) {
+    const toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000
+    });
+    toast.present();
   }
 
 }
