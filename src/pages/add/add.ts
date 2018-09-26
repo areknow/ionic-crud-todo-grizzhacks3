@@ -28,7 +28,8 @@ export class AddPage {
     if (f.value.name) {
       this.collection.add({
         name: f.value.name,
-        description: f.value.description
+        description: f.value.description,
+        time: String(+ new Date())
       })
       .then(()=> {
         this.itemName = '';  
