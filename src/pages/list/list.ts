@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, AlertController, ModalController } from 'ionic-angular';
 
 import { Item } from '../../models/types';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
+
+import { ModalPage } from '../modal/modal';
 
 @Component({
   selector: 'page-list',
@@ -21,7 +23,8 @@ export class ListPage {
     public navParams: NavParams,
     private afs: AngularFirestore,
     public toastCtrl: ToastController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public modalCtrl: ModalController
     ) {
     this.collection = this.afs.collection<Item>('items');
 
@@ -53,6 +56,11 @@ export class ListPage {
       ]
     });
     confirm.present();
+  }
+
+  editItem(item) {
+    const modal = this.modalCtrl.create(ModalPage, { item: item });
+    modal.present();
   }
 
   presentToast(message) {
