@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Item } from '../../models/types';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'page-modal',
@@ -22,7 +23,7 @@ export class ModalPage {
     public params: NavParams,
     public viewCtrl: ViewController,
     private afs: AngularFirestore,
-    public toastCtrl: ToastController,
+    public toast: ToastService,
     ) {
     const paramItem = params.get('item');
     this.itemName = paramItem.name;
@@ -43,20 +44,12 @@ export class ModalPage {
     })
     .then(()=> {
       this.viewCtrl.dismiss();
-      this.presentToast('Item saved!');
+      this.toast.presentToast('Item saved!');
     })
     .catch((error)=> {
       console.log(error);
-      this.presentToast('Error saving item');
+      this.toast.presentToast('Error saving item');
     });
-  }
-
-  presentToast(message) {
-    const toast = this.toastCtrl.create({
-      message: message,
-      duration: 3000
-    });
-    toast.present();
   }
 
 }

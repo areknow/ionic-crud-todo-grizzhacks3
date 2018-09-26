@@ -15,6 +15,7 @@ import { AngularFireModule } from 'angularfire2';
 import { env } from '../environments/env';
 
 import { DateSortPipe } from '../pipes/date-sort';
+import { ToastService } from '../services/toast';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { DateSortPipe } from '../pipes/date-sort';
   providers: [
     StatusBar,
     SplashScreen,
+    ToastService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

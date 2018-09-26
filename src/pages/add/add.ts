@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 
 import { Item } from '../../models/types';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { ListPage } from '../list/list';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'page-add',
@@ -20,7 +21,7 @@ export class AddPage {
   constructor(
     public navCtrl: NavController,
     private afs: AngularFirestore,
-    public toastCtrl: ToastController
+    public toast: ToastService
   ) {
     this.collection = this.afs.collection<Item>('items');
   }
@@ -35,24 +36,16 @@ export class AddPage {
       .then(()=> {
         this.itemName = '';  
         this.itemDesc = '';
-        this.presentToast('Item saved!');
+        this.toast.presentToast('Item saved!');
         this.navCtrl.push(ListPage);
       })
       .catch((error)=> {
         console.log(error);
-        this.presentToast('Error saving item');
+        this.toast.presentToast('Error saving item');
       });
     } else {
-      this.presentToast('Please enter item name');
+      this.toast.presentToast('Please enter item name');
     }
-  }
-
-  presentToast(message) {
-    const toast = this.toastCtrl.create({
-      message: message,
-      duration: 3000
-    });
-    toast.present();
   }
 
 }
