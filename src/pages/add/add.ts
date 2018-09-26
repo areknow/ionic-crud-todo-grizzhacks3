@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 
 import { Item } from '../../models/types';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { ListPage } from '../list/list';
 
 @Component({
   selector: 'page-add',
@@ -35,6 +36,7 @@ export class AddPage {
         this.itemName = '';  
         this.itemDesc = '';
         this.presentToast('Item saved!');
+        this.navCtrl.push(ListPage);
       })
       .catch((error)=> {
         console.log(error);
